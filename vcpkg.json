@@ -1,0 +1,12 @@
+{
+    "name": "example-vcpkg-grpc",
+    "version-string": "0.1.0",
+    "dependencies": [
+        {
+            "name": "grpc",
+            "features": [
+                "codegen"
+            ]
+        }
+    ]
+}
