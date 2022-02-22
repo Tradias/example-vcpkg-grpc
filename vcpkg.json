@@ -1,12 +1,13 @@
 {
-    "name": "example-vcpkg-grpc",
-    "version-string": "0.1.0",
+    "name": "example",
+    "version": "1",
     "dependencies": [
         {
-            "name": "grpc",
+            "name": "asio-grpc",
             "features": [
-                "codegen"
+                "boost-container"
             ]
-        }
+        },
+        "boost-asio"
     ]
 }

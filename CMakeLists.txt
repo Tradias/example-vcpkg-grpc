@@ -1,46 +1,34 @@
-cmake_minimum_required(VERSION 3.19)
+cmake_minimum_required(VERSION 3.15)
 
-project(
-  example-vcpkg-grpc
-  VERSION 0.1.0
-  DESCRIPTION "Example protobuf/gRPC project using vcpkg"
-  HOMEPAGE_URL "https://github.com/Tradias/example-vcpkg-grpc"
-  LANGUAGES CXX)
+project(test)
 
-find_package(gRPC REQUIRED)
+find_package(asio-grpc CONFIG REQUIRED)
 
-# An example using
-# https://cmake.org/cmake/help/latest/module/FindProtobuf.html#command:protobuf_generate_cpp
-protobuf_generate_cpp(HELLOWORLD_SOURCES HELLOWORLD_HEADERS
-                      "${CMAKE_CURRENT_LIST_DIR}/protos/helloworld.proto")
+add_executable(test main.cpp)
 
-add_executable(example-protobuf)
+target_sources(test PRIVATE main.cpp dataProvider.cpp)
 
-target_sources(example-protobuf PRIVATE protobuf.cpp ${HELLOWORLD_SOURCES}
-                                        ${HELLOWORLD_HEADERS})
+target_link_libraries(test PRIVATE asio-grpc::asio-grpc)
 
-target_link_libraries(example-protobuf PRIVATE protobuf::libprotobuf)
-
-target_include_directories(example-protobuf PRIVATE ${CMAKE_CURRENT_BINARY_DIR})
-
-# An example using
-# https://github.com/Tradias/asio-grpc/blob/master/cmake/AsioGrpcProtobufGenerator.cmake
-include("${CMAKE_CURRENT_LIST_DIR}/AsioGrpcProtobufGenerator.cmake")
-
-set(EXAMPLE_PROTOS_OUT_DIR "${CMAKE_CURRENT_BINARY_DIR}/generated")
 asio_grpc_protobuf_generate(
-  GENERATE_GRPC
-  OUT_VAR
-  EXAMPLE_SOURCES
-  PROTOC_OUT_DIR
-  "${EXAMPLE_PROTOS_OUT_DIR}"
-  PROTOS
-  "${CMAKE_CURRENT_LIST_DIR}/protos/example.proto")
+    GENERATE_GRPC
+    TARGET test
+    OUT_DIR "${CMAKE_CURRENT_BINARY_DIR}/generated"
+    IMPORT_DIRS "${CMAKE_CURRENT_SOURCE_DIR}/proto"
+    PROTOS "${CMAKE_CURRENT_SOURCE_DIR}/proto/ole/v1/dataProvider.proto")
 
-add_executable(example-grpc)
+target_include_directories(test PRIVATE "${CMAKE_CURRENT_LIST_DIR}")
 
-target_sources(example-grpc PRIVATE server.cpp ${EXAMPLE_SOURCES})
+target_compile_definitions(
+    test
+    PRIVATE BOOST_ASIO_NO_DEPRECATED
+            $<$<CXX_COMPILER_ID:MSVC>:
+            BOOST_ASIO_HAS_DEDUCED_REQUIRE_MEMBER_TRAIT
+            BOOST_ASIO_HAS_DEDUCED_EXECUTE_MEMBER_TRAIT
+            BOOST_ASIO_HAS_DEDUCED_EQUALITY_COMPARABLE_TRAIT
+            BOOST_ASIO_HAS_DEDUCED_QUERY_MEMBER_TRAIT
+            BOOST_ASIO_HAS_DEDUCED_PREFER_MEMBER_TRAIT>)
 
-target_link_libraries(example-grpc PRIVATE gRPC::grpc++)
+target_compile_features(test PRIVATE cxx_std_20)
 
-target_include_directories(example-grpc PRIVATE ${EXAMPLE_PROTOS_OUT_DIR})
+target_precompile_headers(test PRIVATE "precompiledHeader.h")

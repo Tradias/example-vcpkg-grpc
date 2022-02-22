@@ -1,4 +1,4 @@
-// Copyright 2021 Dennis Hezel
+// Copyright 2015 gRPC authors.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -14,22 +14,18 @@
 
 syntax = "proto3";
 
-package example.v1;
+package ole.v1;
 
-service Example {
-  rpc ServerStreaming(Request) returns (stream Response) {}
-
-  rpc ClientStreaming(stream Request) returns (Response) {}
-
-  rpc BidirectionalStreaming(stream Request) returns (stream Response) {}
-
-  rpc Unary(Request) returns (Response) {}
+service DataProvider {
+  rpc Get(stream Request) returns (stream Data) {}
 }
 
 message Request {
-  int32 integer = 1;
+  uint64 id = 1;
+  string input = 2;
 }
 
-message Response {
-  int32 integer = 1;
+message Data {
+  uint64 id = 1;
+  string data = 2;
 }
