@@ -22,5 +22,5 @@ export VCPKG_ROOT="<path-to-vcpkg>"
 
 ```shell
 cmake --preset default
-cmake --build ./build
+cmake --build --preset default
 ```
