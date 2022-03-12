@@ -1,4 +1,4 @@
-# Example project for synchronous interaction with an asynchronous bidirectional stream
+# Example benchmark for asio-grpc client
 
 1. Install [vcpkg](https://github.com/microsoft/vcpkg). At the time of writing this can be achieved by running:
 

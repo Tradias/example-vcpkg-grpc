@@ -14,18 +14,25 @@
 
 syntax = "proto3";
 
-package ole.v1;
+option java_multiple_files = true;
+option java_package = "io.grpc.examples.helloworld";
+option java_outer_classname = "HelloWorldProto";
+option objc_class_prefix = "HLW";
 
-service DataProvider {
-  rpc Get(stream Request) returns (stream Data) {}
+package helloworld;
+
+// The greeting service definition.
+service Greeter {
+  // Sends a greeting
+  rpc SayHello(HelloRequest) returns (HelloReply) {}
 }
 
-message Request {
-  uint64 id = 1;
-  string input = 2;
+// The request message containing the user's name.
+message HelloRequest {
+  string name = 1;
 }
 
-message Data {
-  uint64 id = 1;
-  string data = 2;
+// The response message containing the greetings
+message HelloReply {
+  string message = 1;
 }
