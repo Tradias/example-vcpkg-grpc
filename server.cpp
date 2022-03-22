@@ -1,24 +1,25 @@
-#include "protos/example.grpc.pb.h"
+#include "helloworld.grpc.pb.h"
 
 #include <grpcpp/server.h>
 #include <grpcpp/server_builder.h>
+#include <thread>
+
+class Service : public helloworld::Greeter::Service {
+  grpc::Status SayHello(grpc::ServerContext *context,
+                        const helloworld::HelloRequest *request,
+                        helloworld::HelloReply *response) override {
+    response->set_message("Hello " + request->name());
+    return grpc::Status::OK;
+  }
+};
 
 int main() {
   grpc::ServerBuilder builder;
   std::unique_ptr<grpc::Server> server;
-  example::v1::Example::AsyncService service;
-  auto cq = builder.AddCompletionQueue();
+  Service service;
   builder.AddListeningPort("0.0.0.0:50051", grpc::InsecureServerCredentials());
   builder.RegisterService(&service);
   server = builder.BuildAndStart();
-
-  grpc::ServerContext server_context;
-  example::v1::Request request;
-  grpc::ServerAsyncResponseWriter<example::v1::Response> writer{
-      &server_context};
-
-  service.RequestUnary(&server_context, &request, &writer, cq.get(), cq.get(),
-                       nullptr);
-
-  server->Wait();
+  std::this_thread::sleep_for(std::chrono::seconds(10));
+  server->Shutdown();
 }
