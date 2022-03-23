@@ -28,6 +28,7 @@ target_precompile_headers(grpc-sources PRIVATE "precompiledHeader.h")
 add_executable(client)
 target_sources(client PRIVATE client.cpp)
 target_link_libraries(client PRIVATE asio-grpc::asio-grpc grpc-sources)
+target_compile_options(client PUBLIC $<$<CXX_COMPILER_ID:GNU>:-fcoroutines>)
 target_include_directories(client PRIVATE "${CMAKE_CURRENT_LIST_DIR}")
 target_precompile_headers(client REUSE_FROM grpc-sources)
 
