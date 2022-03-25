@@ -1,4 +1,4 @@
-# Example benchmark for asio-grpc client
+# Example dispatch bidirectional stream to thread_pool
 
 1. Install [vcpkg](https://github.com/microsoft/vcpkg). At the time of writing this can be achieved by running:
 
