@@ -14,3 +14,11 @@ cd vcpkg
 cmake -B build "-DCMAKE_TOOLCHAIN_FILE=<vcpkg_root>/scripts/buildsystems/vcpkg.cmake"
 cmake --build ./build
 ```
+
+# Branches
+
+This repository has several branches that implement solutions for issues reported to [asio-grpc](https://github.com/Tradias/asio-grpc).
+
+* [issue 13](https://github.com/Tradias/asio-grpc/issues/13): Synchronous interaction with an asynchronous bidirectional stream.
+* [issue 14](https://github.com/Tradias/asio-grpc/issues/14): Client with multiple GrpcContexts and grpc::Channels, picked using round-robin.
+* [issue 16](https://github.com/Tradias/asio-grpc/issues/16): Read from bidirectional stream and dispatch to thread_pool to compute response.
