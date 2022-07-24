@@ -68,8 +68,7 @@ struct CompletionExecutorBinderAsyncResultInitWrapper
     template <class Handler, class... Args>
     void operator()(Handler&& handler, Args&&... args)
     {
-        std::move(initiation)(agrpc_ext::CompletionExecutorBinder<std::remove_cvref_t<Handler>, Executor>(
-                                  executor, std::forward<Handler>(handler)),
+        std::move(initiation)(agrpc_ext::CompletionExecutorBinder(executor, std::forward<Handler>(handler)),
                               std::forward<Args>(args)...);
     }
 
