@@ -1,12 +1,9 @@
 {
-    "name": "example-vcpkg-grpc",
-    "version-string": "0.1.0",
+    "$schema": "https://raw.githubusercontent.com/microsoft/vcpkg/master/scripts/vcpkg.schema.json",
+    "name": "example",
+    "version": "1",
     "dependencies": [
-        {
-            "name": "grpc",
-            "features": [
-                "codegen"
-            ]
-        }
+        "asio-grpc",
+        "asio"
     ]
 }
