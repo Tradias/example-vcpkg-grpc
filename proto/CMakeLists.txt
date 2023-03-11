@@ -1,9 +1,9 @@
-add_library(zprobe_grpc_proto OBJECT)
+add_library(rogerworld_grpc_proto OBJECT)
 
 asio_grpc_protobuf_generate(
   GENERATE_GRPC
   TARGET
-  zprobe_grpc_proto
+  rogerworld_grpc_proto
   USAGE_REQUIREMENT
   PUBLIC
   OUT_DIR
@@ -11,8 +11,8 @@ asio_grpc_protobuf_generate(
   IMPORT_DIRS
   "${CMAKE_CURRENT_SOURCE_DIR}"
   PROTOS
-  "${CMAKE_CURRENT_SOURCE_DIR}/helloworld/helloworld.proto")
+  "${CMAKE_CURRENT_SOURCE_DIR}/rogerworld/rogerworld.proto")
 
-target_compile_features(zprobe_grpc_proto PRIVATE cxx_std_20)
+target_compile_features(rogerworld_grpc_proto PRIVATE cxx_std_20)
 
-target_link_libraries(zprobe_grpc_proto PRIVATE gRPC::grpc++_unsecure)
+target_link_libraries(rogerworld_grpc_proto PRIVATE gRPC::grpc++_unsecure)

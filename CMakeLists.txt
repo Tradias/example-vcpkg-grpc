@@ -1,6 +1,6 @@
-cmake_minimum_required(VERSION 3.15)
+cmake_minimum_required(VERSION 3.15..3.25)
 
-project(zprobe)
+project(rogerworld)
 
 find_package(asio-grpc CONFIG REQUIRED)
 
