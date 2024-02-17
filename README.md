@@ -8,9 +8,9 @@ cd vcpkg
 ./bootstrap-vcpkg.bat   # or .sh
 ```
 
-2. Configure CMake. Replace `<vcpkg_root>` with the directory you cloned vcpkg into. In the root of this repository run:
+2. Configure CMake. Make sure env var `VCPKG_ROOT` points at the directory you cloned vcpkg into. In the root of this repository run:
 
 ```shell
-cmake -B build "-DCMAKE_TOOLCHAIN_FILE=<vcpkg_root>/scripts/buildsystems/vcpkg.cmake"
-cmake --build ./build
+cmake --preset default
+cmake --build --preset default
 ```
