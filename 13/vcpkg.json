@@ -1,0 +1,13 @@
+{
+    "name": "example",
+    "version": "1",
+    "dependencies": [
+        {
+            "name": "asio-grpc",
+            "features": [
+                "boost-container"
+            ]
+        },
+        "boost-asio"
+    ]
+}

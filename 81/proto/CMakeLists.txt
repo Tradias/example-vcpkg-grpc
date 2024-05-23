@@ -1,0 +1,18 @@
+add_library(example_grpc_proto OBJECT)
+
+asio_grpc_protobuf_generate(
+  GENERATE_GRPC
+  TARGET
+  example_grpc_proto
+  USAGE_REQUIREMENT
+  PUBLIC
+  OUT_DIR
+  "${CMAKE_CURRENT_BINARY_DIR}/generated"
+  IMPORT_DIRS
+  "${CMAKE_CURRENT_SOURCE_DIR}"
+  PROTOS
+  "${CMAKE_CURRENT_SOURCE_DIR}/example/v1/example.proto")
+
+target_compile_features(example_grpc_proto PRIVATE cxx_std_20)
+
+target_link_libraries(example_grpc_proto PRIVATE gRPC::grpc++_unsecure)

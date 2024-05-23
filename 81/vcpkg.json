@@ -1,0 +1,10 @@
+{
+    "$schema": "https://raw.githubusercontent.com/microsoft/vcpkg-tool/main/docs/vcpkg.schema.json",
+    "name": "example",
+    "version": "1",
+    "dependencies": [
+        "asio-grpc",
+        "boost-asio"
+    ],
+    "builtin-baseline": "64adda19c86e89526b5e27703a193c14477cce07"
+}
